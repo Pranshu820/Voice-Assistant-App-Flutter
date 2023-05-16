@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   final OpenAIService openAIService = OpenAIService();
   String? generatedContent;
   String? generatedImageUrl;
-  int start = 200;
+  int start = 1000;
   int delay = 800;
 
   @override
@@ -91,6 +91,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: BounceInDown(
+          duration: const Duration(milliseconds: 1000),
           child: const Text(
             'Allen\'s App',
             style: TextStyle(
@@ -107,6 +108,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             ZoomIn(
+              duration: const Duration(milliseconds: 1000),
               child: Stack(
                 children: [
                   Center(
@@ -134,6 +136,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             FadeInRight(
+              duration: const Duration(milliseconds: 1000),
               child: Visibility(
                 visible: generatedImageUrl == null,
                 child: Container(
@@ -179,6 +182,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             SlideInLeft(
+              duration: const Duration(milliseconds: 1000),
               child: Visibility(
                 visible: generatedContent == null && generatedImageUrl == null,
                 child: Container(
@@ -238,7 +242,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: ZoomIn(
-        delay: Duration(milliseconds: start + delay * 2),
+        delay: Duration(milliseconds: start + delay * 3),
         child: FloatingActionButton(
           onPressed: () async {
             if (await speechToText.hasPermission && speechToText.isNotListening) {
