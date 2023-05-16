@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   String? generatedContent;
   String? generatedImageUrl;
   int start = 1000;
-  int delay = 800;
+  int delay = 500;
 
   @override
   void initState() {
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       speech = result.recognizedWords;
       // print(speech);
-      print(result.toJson());
+      // print(result.toJson());
     });
   }
 
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: BounceInDown(
-          duration: const Duration(milliseconds: 1000),
+          duration: Duration(milliseconds: start * 5),
           child: const Text(
             'Allen\'s App',
             style: TextStyle(
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             ZoomIn(
-              duration: const Duration(milliseconds: 1000),
+              duration: Duration(milliseconds: start * 6),
               child: Stack(
                 children: [
                   Center(
@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             FadeInRight(
-              duration: const Duration(milliseconds: 1000),
+              duration: Duration(milliseconds: start * 4),
               child: Visibility(
                 visible: generatedImageUrl == null,
                 child: Container(
@@ -182,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             SlideInLeft(
-              duration: const Duration(milliseconds: 1000),
+              duration: Duration(milliseconds: start * 4),
               child: Visibility(
                 visible: generatedContent == null && generatedImageUrl == null,
                 child: Container(
@@ -245,7 +245,8 @@ class _HomePageState extends State<HomePage> {
         delay: Duration(milliseconds: start + delay * 3),
         child: FloatingActionButton(
           onPressed: () async {
-            if (await speechToText.hasPermission && speechToText.isNotListening) {
+            if (await speechToText.hasPermission &&
+                speechToText.isNotListening) {
               await startListening();
             } else if (speechToText.isListening) {
               final output = await openAIService.isArtPromptAPI(speech);
